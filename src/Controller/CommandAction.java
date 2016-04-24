@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Arc2D;
+import java.util.NoSuchElementException;
 
 public class CommandAction implements ActionListener {
     JButton button;
@@ -22,16 +23,41 @@ public class CommandAction implements ActionListener {
     public void actionPerformed(ActionEvent event) {
 
         String input = event.getActionCommand();
-        if (button.getText() == "=")
-            screen.getScreen().setText(String.valueOf(reversePolishNotation.eval(screen.getScreen().getText())));
-        else if (button.getText() == "sqrt")
-            screen.getScreen().setText(String.valueOf(Math.sqrt(Integer.parseInt(screen.getScreen().getText()))));
-        else
-            screen.getScreen().setText(screen.getScreen().getText() + input);
-        if (button.getText() == "C")
-            screen.getScreen().setText("");
-        if (button.getText() == "DEL")
-            screen.getScreen().setText(screen.getScreen().getText().substring(0, screen.getScreen().getText().length() - 4));
+        switch (button.getText()) {
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+            case "%":
+                screen.getScreen().setText(screen.getScreen().getText() + input);
+                break;
+            case "=":
+                try {
+                    screen.getScreen().setText(String.valueOf(reversePolishNotation.parsing(screen.getScreen().getText())));
+                } catch (NumberFormatException e) {
+                } catch (IndexOutOfBoundsException e) {
+                } catch (NoSuchElementException e) {
+                }
+                break;
+            case "C":
+                screen.getScreen().setText("");
+                break;
+            case "DEL":
+                try {
+                    screen.getScreen().setText(screen.getScreen().getText().substring(0, screen.getScreen().getText().length() - 1));
+                } catch (StringIndexOutOfBoundsException e) {
+                }
+                break;
+            case "sqrt":
+                screen.getScreen().setText(String.valueOf(Math.sqrt(Double.parseDouble(screen.getScreen().getText()))));
+                break;
+            case "1/x":
+                try {
+                    screen.getScreen().setText(String.valueOf(1 / Double.parseDouble(screen.getScreen().getText())));
+                } catch (NumberFormatException e) {
+                }
+                break;
 
+        }
     }
 }
