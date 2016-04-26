@@ -13,10 +13,11 @@ public class Calculator {
     Screen calculatorScreen;
     ButtonsPanel buttonsPanel;
 
-    public Calculator() {
+    public Calculator(Window window) {
+
         calculatorPanel = Box.createVerticalBox();
         calculatorScreen = new Screen();
-        buttonsPanel=new ButtonsPanel(calculatorScreen);
+        buttonsPanel=new ButtonsPanel(calculatorScreen,window);
 
         calculatorPanel.add(calculatorScreen.getScreen());
         calculatorPanel.add(Box.createVerticalStrut(6));
