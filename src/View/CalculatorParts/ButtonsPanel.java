@@ -107,12 +107,10 @@ public class ButtonsPanel {
         addButton(trigPanel, "sin", ButtonsPanel.COMMAND);
         addButton(trigPanel, "cos", ButtonsPanel.COMMAND);
         addButton(trigPanel, "tan", ButtonsPanel.COMMAND);
-        addButton(trigPanel, "ctan", ButtonsPanel.COMMAND);
 
         addButton(trigPanel, "sinh", ButtonsPanel.COMMAND);
         addButton(trigPanel, "cosh", ButtonsPanel.COMMAND);
         addButton(trigPanel, "tanh", ButtonsPanel.COMMAND);
-        addButton(trigPanel, "ctanh", ButtonsPanel.COMMAND);
 
         Dimension trigDemension = new Dimension(123, 259);
         trigPanel.setSize(trigDemension);

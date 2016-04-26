@@ -31,6 +31,14 @@ public class CommandAction implements ActionListener {
             case "%":
                 screen.getScreen().setText(screen.getScreen().getText() + input);
                 break;
+            case "sin":
+            case "cos":
+            case "tan":
+            case "sinh":
+            case "cosh":
+            case "tanh":
+                screen.getScreen().setText(screen.getScreen().getText() + input + "(");
+                break;
             case "=":
                 try {
                     screen.getScreen().setText(String.valueOf(reversePolishNotation.parsing(screen.getScreen().getText())));
@@ -57,7 +65,7 @@ public class CommandAction implements ActionListener {
                 } catch (NumberFormatException e) {
                 }
                 break;
-
         }
     }
 }
+
