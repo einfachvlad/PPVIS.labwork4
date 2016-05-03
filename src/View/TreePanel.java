@@ -13,6 +13,7 @@ public class TreePanel {
     private JPanel panel;
     JTree tree;
     DefaultMutableTreeNode root;
+    JScrollPane scrollPane;
 
     public TreePanel(){
         panel=new JPanel();
@@ -20,7 +21,12 @@ public class TreePanel {
         root=new DefaultMutableTreeNode("=");
         tree=new JTree(root);
 
-        panel.add(tree);
+        scrollPane=new JScrollPane(tree);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+
+        panel.add(scrollPane);
         Dimension dimension=new Dimension(200,250);
         panel.setMinimumSize(dimension);
         panel.setPreferredSize(dimension);
@@ -29,6 +35,8 @@ public class TreePanel {
         tree.setMinimumSize(dimension);
         tree.setPreferredSize(dimension);
         tree.setSize(dimension);
+        tree.expandRow(1);
+        tree.scrollRowToVisible(2);
 
 
         //tree.setVisibleRowCount(1);
@@ -47,7 +55,6 @@ public class TreePanel {
     }
 
     public void setHeight(int height){
-        System.out.println(height);
         Dimension dimension=new Dimension(200,height);
         panel.setMinimumSize(dimension);
         panel.setPreferredSize(dimension);

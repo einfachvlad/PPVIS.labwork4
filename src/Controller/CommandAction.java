@@ -15,6 +15,7 @@ public class CommandAction implements ActionListener {
     TreePanel tree;
     ReversePolishNotation reversePolishNotation;
     String value;
+    String prevText;
     DefaultMutableTreeNode child;
     DefaultMutableTreeNode parent;
 
@@ -68,11 +69,15 @@ public class CommandAction implements ActionListener {
                 }
                 break;
             case "sqrt":
+                prevText = screen.getScreen().getText();
                 value = String.valueOf(Math.sqrt(Double.parseDouble(screen.getScreen().getText())));
                 screen.getScreen().setText(value);
                 tree.getRoot().setUserObject(value);
-
-                child = tree.getRoot().getNextNode();
+                if (tree.getRoot().getChildCount() == 0)
+                    child = new DefaultMutableTreeNode(prevText);
+                else {
+                    child = tree.getRoot().getNextNode();
+                }
                 parent = new DefaultMutableTreeNode("sqrt");
                 parent.add(child);
                 tree.getRoot().removeAllChildren();
@@ -81,12 +86,15 @@ public class CommandAction implements ActionListener {
                 break;
             case "1/x":
                 try {
+                    prevText = screen.getScreen().getText();
                     value = String.valueOf(1 / Double.parseDouble(screen.getScreen().getText()));
                     screen.getScreen().setText(value);
                     tree.getRoot().setUserObject(value);
-
-                    child = tree.getRoot().getNextNode();
-                    parent = new DefaultMutableTreeNode("1/x");
+                    if (tree.getRoot().getChildCount() == 0)
+                        child = new DefaultMutableTreeNode(prevText);
+                    else {
+                        child = tree.getRoot().getNextNode();
+                    }                    parent = new DefaultMutableTreeNode("1/x");
                     parent.add(child);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);

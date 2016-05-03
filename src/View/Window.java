@@ -23,7 +23,6 @@ public class Window {
         mainwidnow.setContentPane(boxPanel);
 
         mainwidnow.pack();
-        System.out.println(mainwidnow.getWidth());
         treePanel.setHeight(mainwidnow.getHeight());
 
 
