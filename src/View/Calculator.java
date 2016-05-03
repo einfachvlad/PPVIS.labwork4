@@ -1,7 +1,7 @@
 package View;
 
-import View.CalculatorParts.ButtonsPanel;
-import View.CalculatorParts.Screen;
+import View.CalculatorParts.*;
+import View.Window;
 
 import javax.swing.*;
 
@@ -13,11 +13,11 @@ public class Calculator {
     Screen calculatorScreen;
     ButtonsPanel buttonsPanel;
 
-    public Calculator(Window window) {
+    public Calculator(Window window,TreePanel tree) {
 
         calculatorPanel = Box.createVerticalBox();
         calculatorScreen = new Screen();
-        buttonsPanel=new ButtonsPanel(calculatorScreen,window);
+        buttonsPanel=new ButtonsPanel(calculatorScreen,window,tree);
 
         calculatorPanel.add(calculatorScreen.getScreen());
         calculatorPanel.add(Box.createVerticalStrut(6));

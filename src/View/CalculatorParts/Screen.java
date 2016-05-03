@@ -13,18 +13,11 @@ public class Screen {
     public Screen(){
         screen=new JTextField();
         screen.setEnabled(false);
-        scrollPane=new JScrollPane();
-        scrollPane.add(screen);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         screen.setPreferredSize(new Dimension(200,100));
         screen.setSize(210,100);
     }
 
     public JTextField getScreen(){
         return screen;
-    }
-
-    public JScrollPane getScrollPane(){
-        return scrollPane;
     }
 }

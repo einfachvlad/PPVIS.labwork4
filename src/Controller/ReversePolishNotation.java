@@ -1,8 +1,34 @@
 package Controller;
 
+import View.TreePanel;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import java.util.LinkedList;
 
 public class ReversePolishNotation {
+
+    DefaultMutableTreeNode child1;
+    DefaultMutableTreeNode child2;
+    DefaultMutableTreeNode parent;
+    TreePanel tree;
+
+
+    public ReversePolishNotation(TreePanel tree) {
+        this.tree = tree;
+        child1 = new DefaultMutableTreeNode();
+        child2 = new DefaultMutableTreeNode();
+        parent = new DefaultMutableTreeNode("");
+    }
+
+    public void resetNotation() {
+        child1.removeAllChildren();
+        child2.removeAllChildren();
+        parent.removeAllChildren();
+        child1 = new DefaultMutableTreeNode();
+        child2 = new DefaultMutableTreeNode();
+        parent = new DefaultMutableTreeNode("");
+    }
 
     boolean isOperator(String operator) {
         return operator.equals("+") || operator.equals("-") || operator.equals("*") || operator.equals("/") || operator.equals("%");
@@ -25,48 +51,136 @@ public class ReversePolishNotation {
         double firstOperand = operands.removeLast();
         if (operator.equals("sin") || operator.equals("cos") || operator.equals("tan") ||
                 operator.equals("sinh") || operator.equals("cosh") || operator.equals("tanh")) {
+
+            if (parent.getChildCount() == 0)
+                child1 = new DefaultMutableTreeNode(firstOperand);
+            else
+                child1 = parent;
+
+
             switch (operator) {
                 case "sin":
                     operands.add(Math.sin(firstOperand));
+                    parent = new DefaultMutableTreeNode(Math.sin(firstOperand));
+                    parent.add(child1);
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 case "cos":
                     operands.add(Math.cos(firstOperand));
+                    parent = new DefaultMutableTreeNode(Math.cos(firstOperand));
+                    parent.add(child1);
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 case "tan":
                     operands.add(Math.tan(firstOperand));
+                    parent = new DefaultMutableTreeNode(Math.tan(firstOperand));
+                    parent.add(child1);
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 case "sinh":
                     operands.add(Math.sinh(firstOperand));
+                    parent = new DefaultMutableTreeNode(Math.sinh(firstOperand));
+                    parent.add(child1);
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 case "cosh":
                     operands.add(Math.cosh(firstOperand));
+                    parent = new DefaultMutableTreeNode(Math.cosh(firstOperand));
+                    parent.add(child1);
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 case "tanh":
                     operands.add(Math.tanh(firstOperand));
+                    parent = new DefaultMutableTreeNode(Math.tanh(firstOperand));
+                    parent.add(child1);
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
             }
         } else {
             double secondOperand = operands.removeLast();
 
+            if (parent.getChildCount() == 0) {
+                child1 = new DefaultMutableTreeNode(firstOperand);
+                child2 = new DefaultMutableTreeNode(secondOperand);
+            } else {
+
+                if (firstOperand == Double.valueOf(parent.toString())) {
+                    child1 = parent;
+                    child2 = new DefaultMutableTreeNode(secondOperand);
+                } else {
+                    child2 = parent;
+                    child1 = new DefaultMutableTreeNode(firstOperand);
+                }
+
+            }
+
             switch (operator) {
                 case "+":
                     operands.add(firstOperand + secondOperand);
+
+                    parent = new DefaultMutableTreeNode(firstOperand + secondOperand);
+
+                    parent.add(child1);
+                    parent.add(child2);
+
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 case "-":
                     operands.add(secondOperand - firstOperand);
+
+                    parent = new DefaultMutableTreeNode(firstOperand - secondOperand);
+
+                    parent.add(child1);
+                    parent.add(child2);
+
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 case "*":
                     operands.add(secondOperand * firstOperand);
+
+                    parent = new DefaultMutableTreeNode(firstOperand * secondOperand);
+
+                    parent.add(child1);
+                    parent.add(child2);
+
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
+
                     break;
                 case "/":
                     operands.add(secondOperand / firstOperand);
+
+                    parent = new DefaultMutableTreeNode(firstOperand / secondOperand);
+
+                    parent.add(child1);
+                    parent.add(child2);
+
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 case "%":
                     operands.add(secondOperand % firstOperand);
+
+                    parent = new DefaultMutableTreeNode(firstOperand % secondOperand);
+
+                    parent.add(child1);
+                    parent.add(child2);
+
+                    tree.getRoot().removeAllChildren();
+                    tree.getRoot().add(parent);
                     break;
                 default:
                     System.out.println("Something wrong");
             }
+
         }
     }
 
@@ -87,7 +201,6 @@ public class ReversePolishNotation {
                 }
                 operators.removeLast();
             } else if (isOperator(c)) {
-
                 if (c.equals("-") && minusChecker)
                     operands.add(0.0);
 
@@ -133,12 +246,23 @@ public class ReversePolishNotation {
                 }
                 --index;
                 operands.add(Double.parseDouble(operand));
+                minusChecker = false;
+
             }
         }
 
         while (!operators.isEmpty()) {
             runCommand(operands, operators.removeLast());
         }
+
+/*        if (tree.getRoot().getFirstChild().toString() == "") {
+            DefaultMutableTreeNode newChild = tree.getRoot().getNextNode().getNextNode();
+            tree.getRoot().removeAllChildren();
+            tree.getRoot().add(newChild);
+        }*/
+
+        tree.getRoot().setUserObject(operands.get(0));
+
         return operands.get(0);
 
     }

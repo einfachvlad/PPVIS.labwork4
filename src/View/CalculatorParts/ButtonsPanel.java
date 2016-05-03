@@ -3,14 +3,12 @@ package View.CalculatorParts;
 import Controller.CommandAction;
 import Controller.InsertAction;
 import Controller.RadioAction;
-import View.*;
-import View.Window;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+
+import View.TreePanel;
+import View.Window;
 
 /**
  * Created by einfach_vlad on 23.04.16.
@@ -21,17 +19,17 @@ public class ButtonsPanel {
     public JRadioButton trig;
     private Box buttonsPanel;
     private Screen screen;
-    private Window window;
+    private TreePanel tree;
 
-    public ButtonsPanel(Screen screen, Window window) {
-        this.window = window;
+    public ButtonsPanel(Screen screen, Window window, TreePanel tree) {
 
         buttonsPanel = Box.createVerticalBox();
         this.screen = screen;
+        this.tree=tree;
 
 
         trig = new JRadioButton("Trig");
-        trig.addActionListener(new RadioAction(this, window, screen));
+        trig.addActionListener(new RadioAction(this, window, screen,tree));
         buttonsPanel.add(extraPanel());
         buttonsPanel.add(simplePanel());
 
@@ -51,7 +49,7 @@ public class ButtonsPanel {
                 button.getButton().addActionListener(new InsertAction(button.getButton(), screen));
                 break;
             case ButtonsPanel.COMMAND:
-                button.getButton().addActionListener(new CommandAction(button.getButton(), screen));
+                button.getButton().addActionListener(new CommandAction(button.getButton(), screen,tree));
                 break;
         }
         panel.add(button.getButton());

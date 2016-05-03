@@ -1,6 +1,6 @@
 package Controller;
 
-import View.CalculatorParts.Screen;
+import View.CalculatorParts.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

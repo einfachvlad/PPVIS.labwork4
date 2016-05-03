@@ -12,10 +12,21 @@ public class Window {
         mainwidnow = new JFrame("Лабораторная работа №4");
         mainwidnow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Calculator calculator=new Calculator(this);
-        mainwidnow.setContentPane(calculator.getPanel());
+        TreePanel treePanel=new TreePanel();
+        Calculator calculator=new Calculator(this,treePanel);
+
+        Box boxPanel=Box.createHorizontalBox();
+        boxPanel.add(treePanel.getPanel());
+        boxPanel.add(Box.createHorizontalStrut(12));
+        boxPanel.add(calculator.getPanel());
+
+        mainwidnow.setContentPane(boxPanel);
 
         mainwidnow.pack();
+        System.out.println(mainwidnow.getWidth());
+        treePanel.setHeight(mainwidnow.getHeight());
+
+
         mainwidnow.setVisible(true);
     }
 

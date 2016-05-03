@@ -1,9 +1,7 @@
 package Controller;
 
-import View.*;
-import View.CalculatorParts.ButtonsPanel;
-import View.CalculatorParts.ButtonsPanel;
-import View.CalculatorParts.Screen;
+import View.CalculatorParts.*;
+import View.TreePanel;
 import View.Window;
 
 import javax.swing.*;
@@ -19,11 +17,14 @@ public class RadioAction implements ActionListener {
     private ButtonsPanel panel;
     private Window window;
     private Screen screen;
+    private TreePanel tree;
 
-    public RadioAction(ButtonsPanel panel, Window window, Screen screen) {
+
+    public RadioAction(ButtonsPanel panel, Window window, Screen screen, TreePanel tree) {
         this.panel = panel;
         this.window = window;
         this.screen = screen;
+        this.tree = tree;
     }
 
     @Override
@@ -42,7 +43,9 @@ public class RadioAction implements ActionListener {
             panel.getPanel().setMinimumSize(panelDimension);
             panel.getPanel().setSize(panelDimension);
 
-            window.getFrame().setSize(panel.getPanel().getWidth(), window.getFrame().getHeight());
+            Dimension frameDimension=new Dimension(tree.getPanel().getWidth() + panel.getPanel().getWidth()+12, window.getFrame().getHeight());
+            window.getFrame().setMinimumSize(frameDimension);
+            window.getFrame().setSize(frameDimension);
 
             panel.getPanel().validate();
 
@@ -55,7 +58,9 @@ public class RadioAction implements ActionListener {
             panel.getPanel().setMinimumSize(panelDimension);
             panel.getPanel().setSize(panelDimension);
 
-            window.getFrame().setSize(panel.getPanel().getWidth(), window.getFrame().getHeight());
+            Dimension frameDimension=new Dimension(tree.getPanel().getWidth() + panel.getPanel().getWidth()+12, window.getFrame().getHeight());
+            window.getFrame().setMinimumSize(frameDimension);
+            window.getFrame().setSize(frameDimension);
 
             panel.getPanel().validate();
         }
