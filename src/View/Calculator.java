@@ -13,7 +13,7 @@ public class Calculator {
     Screen calculatorScreen;
     ButtonsPanel buttonsPanel;
 
-    public Calculator(Window window,TreePanel tree) {
+    public Calculator(Window window,Tree tree) {
 
         calculatorPanel = Box.createVerticalBox();
         calculatorScreen = new Screen();

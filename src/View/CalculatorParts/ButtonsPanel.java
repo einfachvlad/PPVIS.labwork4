@@ -7,7 +7,7 @@ import Controller.RadioAction;
 import javax.swing.*;
 import java.awt.*;
 
-import View.TreePanel;
+import View.Tree;
 import View.Window;
 
 /**
@@ -19,17 +19,16 @@ public class ButtonsPanel {
     public JRadioButton trig;
     private Box buttonsPanel;
     private Screen screen;
-    private TreePanel tree;
+    private Tree tree;
 
-    public ButtonsPanel(Screen screen, Window window, TreePanel tree) {
+    public ButtonsPanel(Screen screen, Window window, Tree tree) {
 
         buttonsPanel = Box.createVerticalBox();
         this.screen = screen;
         this.tree=tree;
 
-
         trig = new JRadioButton("Trig");
-        trig.addActionListener(new RadioAction(this, window, screen,tree));
+        trig.addActionListener(new RadioAction(this, window,tree));
         buttonsPanel.add(extraPanel());
         buttonsPanel.add(simplePanel());
 

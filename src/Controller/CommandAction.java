@@ -1,25 +1,29 @@
 package Controller;
 
 import View.CalculatorParts.*;
-import View.TreePanel;
+import View.Tree;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandAction implements ActionListener {
     JButton button;
     Screen screen;
-    TreePanel tree;
+    Tree tree;
     ReversePolishNotation reversePolishNotation;
     String value;
     String prevText;
     DefaultMutableTreeNode child;
     DefaultMutableTreeNode parent;
 
-    public CommandAction(JButton button, Screen screen, TreePanel tree) {
+    private static Logger log=Logger.getLogger(CommandAction.class.getName());
+
+    public CommandAction(JButton button, Screen screen, Tree tree) {
         this.button = button;
         this.screen = screen;
         this.tree = tree;
@@ -51,8 +55,11 @@ public class CommandAction implements ActionListener {
                     screen.getScreen().setText(String.valueOf(reversePolishNotation.parsing(screen.getScreen().getText())));
                     tree.update();
                 } catch (NumberFormatException e) {
+                    log.log(Level.INFO,"При попытке парсинга строки в case = произошла ошибка",e);
                 } catch (IndexOutOfBoundsException e) {
+                    log.log(Level.INFO,"Выход за пределы строки в case =",e);
                 } catch (NoSuchElementException e) {
+                    log.log(Level.INFO,"Элементов больше нет",e);
                 }
                 break;
             case "C":
@@ -64,8 +71,12 @@ public class CommandAction implements ActionListener {
                 break;
             case "DEL":
                 try {
-                    screen.getScreen().setText(screen.getScreen().getText().substring(0, screen.getScreen().getText().length() - 1));
+                    value = String.valueOf(screen.getScreen().getText().substring(0, screen.getScreen().getText().length() - 1));
+                    screen.getScreen().setText(value);
+                    tree.getRoot().setUserObject(value);
+                    tree.update();
                 } catch (StringIndexOutOfBoundsException e) {
+                    log.log(Level.INFO,"Выход за пределы строки в case DEL",e);
                 }
                 break;
             case "sqrt":
@@ -101,6 +112,7 @@ public class CommandAction implements ActionListener {
                     tree.update();
 
                 } catch (NumberFormatException e) {
+                    log.log(Level.INFO,"При попытке парсинга строки в case 1/x произошла ошибка",e);
                 }
                 break;
         }

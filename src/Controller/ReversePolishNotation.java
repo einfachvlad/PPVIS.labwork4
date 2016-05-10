@@ -1,7 +1,8 @@
 package Controller;
 
-import View.TreePanel;
+import View.Tree;
 
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.util.LinkedList;
@@ -11,10 +12,10 @@ public class ReversePolishNotation {
     DefaultMutableTreeNode child1;
     DefaultMutableTreeNode child2;
     DefaultMutableTreeNode parent;
-    TreePanel tree;
+    Tree tree;
 
 
-    public ReversePolishNotation(TreePanel tree) {
+    public ReversePolishNotation(Tree tree) {
         this.tree = tree;
         child1 = new DefaultMutableTreeNode();
         child2 = new DefaultMutableTreeNode();
@@ -177,8 +178,6 @@ public class ReversePolishNotation {
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
                     break;
-                default:
-                    System.out.println("Something wrong");
             }
 
         }
@@ -254,13 +253,6 @@ public class ReversePolishNotation {
         while (!operators.isEmpty()) {
             runCommand(operands, operators.removeLast());
         }
-
-/*        if (tree.getRoot().getFirstChild().toString() == "") {
-            DefaultMutableTreeNode newChild = tree.getRoot().getNextNode().getNextNode();
-            tree.getRoot().removeAllChildren();
-            tree.getRoot().add(newChild);
-        }*/
-
         tree.getRoot().setUserObject(operands.get(0));
 
         return operands.get(0);
