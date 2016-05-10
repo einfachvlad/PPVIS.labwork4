@@ -5,7 +5,6 @@ import View.CalculatorParts.*;
 import View.Tree;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.NoSuchElementException;
@@ -88,9 +87,11 @@ public class CommandAction implements ActionListener {
                 if (tree.getRoot().getChildCount() == 0)
                     child = new TreeNode(prevText);
                 else {
-                    child = tree.getRoot().getNextNode();
+                    child = new TreeNode(tree.getRoot().getNode().getNextNode());
                 }
-                parent = new TreeNode("sqrt");
+                parent = new TreeNode(value);
+                parent.setOperator("sqrt");
+                parent.setValue(Double.valueOf(value));
                 parent.add(child);
                 tree.getRoot().removeAllChildren();
                 tree.getRoot().add(parent);
@@ -105,9 +106,11 @@ public class CommandAction implements ActionListener {
                     if (tree.getRoot().getChildCount() == 0)
                         child = new TreeNode(prevText);
                     else {
-                        child = tree.getRoot().getNextNode();
+                        child = new TreeNode(tree.getRoot().getNode().getNextNode());
                     }
-                    parent = new TreeNode("1/x");
+                    parent = new TreeNode(value);
+                    parent.setOperator("1/x");
+                    parent.setValue(Double.valueOf(value));
                     parent.add(child);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);

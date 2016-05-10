@@ -3,14 +3,18 @@ package Model;
 import View.Tree;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TreeNode {
 
     private DefaultMutableTreeNode node;
-    private String operand;
+    private String operator;
     private double value;
 
-    public DefaultMutableTreeNode getNode(){
+    public DefaultMutableTreeNode getNode() {
         return node;
     }
 
@@ -22,13 +26,17 @@ public class TreeNode {
         node = new DefaultMutableTreeNode(object);
     }
 
-    public String getOperand() {
-        return operand;
+    public TreeNode(DefaultMutableTreeNode node) {
+        this.node = node;
     }
 
-    public String setOperand(String operand) {
-        this.operand = operand;
-        return this.operand;
+    public String getOperator() {
+        return operator;
+    }
+
+    public String setOperator(String operand) {
+        this.operator = operand;
+        return this.operator;
     }
 
     public double getValue() {
@@ -40,27 +48,24 @@ public class TreeNode {
         return value;
     }
 
-    public int getChildCount(){
+    public int getChildCount() {
         return node.getChildCount();
     }
 
-    public void add(TreeNode treeNode){
+    public void add(TreeNode treeNode) {
         node.add(treeNode.getNode());
     }
-    public void removeAllChildren(){
+
+    public void removeAllChildren() {
         node.removeAllChildren();
     }
-    public void setUserObject(Object object){
+
+    public void setUserObject(Object object) {
         node.setUserObject(object);
     }
-    public Object getUserObject(){
-        return node.getUserObject();
-    }
 
-    public TreeNode getNextNode()
-    {
-        node=node.getNextNode();
-        return this;
+    public Object getUserObject() {
+        return node.getUserObject();
     }
 
 }

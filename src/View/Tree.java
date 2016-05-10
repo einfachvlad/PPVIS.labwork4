@@ -6,6 +6,7 @@ import Model.TreeModel;
 import Model.TreeNode;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 
 /**
@@ -21,22 +22,33 @@ public class Tree {
         Dimension dimension = new Dimension(200, 250);
 
         tree.getTree().setMinimumSize(dimension);
-        tree.getTree().addTreeExpansionListener(new TreeListener(tree.getTree()));
+        tree.getTree().addTreeExpansionListener(new TreeListener(this));
+    }
+    public Tree(TreeNode root) {
+        this.root=root;
+        tree = new TreeModel(root);
+        Dimension dimension = new Dimension(200, 250);
+
+        tree.getTree().setMinimumSize(dimension);
+        tree.getTree().addTreeExpansionListener(new TreeListener(this));
     }
 
-    public void setRoot(TreeNode node){
-        tree=new TreeModel(node);
-    }
+  /*  public void setRoot(TreeNode node) {
+        root = node;
+        //DefaultMutableTreeNode deepRoot = (DefaultMutableTreeNode)tree.getTree().getModel().getRoot();
+        //deepRoot=node.getNode();
+    }*/
 
-    public TreeNode getRoot(){
+    public TreeNode getRoot() {
 
         return root;
     }
-    public TreeModel getTree(){
+
+    public TreeModel getTree() {
         return tree;
     }
 
-    public void update(){
+    public void update() {
         tree.getTree().validate();
         tree.getTree().updateUI();
     }
