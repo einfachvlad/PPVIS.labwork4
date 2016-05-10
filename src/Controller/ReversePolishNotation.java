@@ -4,6 +4,7 @@ import Model.TreeNode;
 import View.Tree;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.LinkedList;
 
 public class ReversePolishNotation {
@@ -12,12 +13,14 @@ public class ReversePolishNotation {
     TreeNode child2;
     TreeNode parent;
     Tree tree;
+    TreeNode laterNode;
 
     public ReversePolishNotation(Tree tree) {
         this.tree = tree;
         child1 = new TreeNode();
         child2 = new TreeNode();
         parent = new TreeNode("");
+        laterNode = new TreeNode("");
     }
 
     boolean isOperator(String operator) {
@@ -93,23 +96,39 @@ public class ReversePolishNotation {
                     break;
             }
         } else {
+
             double secondOperand = operands.removeLast();
 
-            if (parent.getChildCount() == 0) {
-                child1 = new TreeNode(firstOperand);
-                child2 = new TreeNode(secondOperand);
+            if (!laterNode.getNode().getUserObject().equals("")) {
+                if (firstOperand == Double.valueOf(laterNode.getNode().toString())) {
+                    child1 = laterNode;
+                    child2 = new TreeNode(secondOperand);
+                    laterNode = new TreeNode();
+                } else if (secondOperand == Double.valueOf(laterNode.getNode().toString())) {
+                    child2 = laterNode;
+                    child1 = new TreeNode(firstOperand);
+                    laterNode = new TreeNode();
+                }
             } else {
-
-                if (firstOperand == Double.valueOf(parent.getNode().toString())) {
-                    child1 = parent;
+                if (parent.getChildCount() == 0) {
+                    child1 = new TreeNode(firstOperand);
                     child2 = new TreeNode(secondOperand);
                 } else {
-                    child2 = parent;
-                    child1 = new TreeNode(firstOperand);
+
+                    if (firstOperand == Double.valueOf(parent.getNode().toString())) {
+                        child1 = parent;
+                        child2 = new TreeNode(secondOperand);
+                    } else if (secondOperand == Double.valueOf(parent.getNode().toString())) {
+                        child2 = parent;
+                        child1 = new TreeNode(firstOperand);
+                    } else {
+                        laterNode = parent;
+                        child1 = new TreeNode(firstOperand);
+                        child2 = new TreeNode(secondOperand);
+                    }
+
                 }
-
             }
-
             switch (operator) {
                 case "+":
                     operands.add(firstOperand + secondOperand);
@@ -125,10 +144,11 @@ public class ReversePolishNotation {
                 case "-":
                     operands.add(secondOperand - firstOperand);
 
-                    parent = new TreeNode(firstOperand - secondOperand  );
-
-                    parent.add(child1);
-                    parent.add(child2);
+                    parent = new TreeNode(secondOperand - firstOperand);
+                    if (secondOperand != 0.0 && firstOperand != 0.0) {
+                        parent.add(child1);
+                        parent.add(child2);
+                    }
 
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
