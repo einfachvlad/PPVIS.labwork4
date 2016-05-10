@@ -14,18 +14,8 @@ public class ReversePolishNotation {
     DefaultMutableTreeNode parent;
     Tree tree;
 
-
     public ReversePolishNotation(Tree tree) {
         this.tree = tree;
-        child1 = new DefaultMutableTreeNode();
-        child2 = new DefaultMutableTreeNode();
-        parent = new DefaultMutableTreeNode("");
-    }
-
-    public void resetNotation() {
-        child1.removeAllChildren();
-        child2.removeAllChildren();
-        parent.removeAllChildren();
         child1 = new DefaultMutableTreeNode();
         child2 = new DefaultMutableTreeNode();
         parent = new DefaultMutableTreeNode("");
@@ -136,7 +126,7 @@ public class ReversePolishNotation {
                 case "-":
                     operands.add(secondOperand - firstOperand);
 
-                    parent = new DefaultMutableTreeNode(firstOperand - secondOperand);
+                    parent = new DefaultMutableTreeNode(secondOperand - firstOperand);
 
                     parent.add(child1);
                     parent.add(child2);

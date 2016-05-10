@@ -12,16 +12,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CommandAction implements ActionListener {
+    static ReversePolishNotation reversePolishNotation;
+
     JButton button;
     Screen screen;
     Tree tree;
-    ReversePolishNotation reversePolishNotation;
     String value;
     String prevText;
     DefaultMutableTreeNode child;
     DefaultMutableTreeNode parent;
 
-    private static Logger log=Logger.getLogger(CommandAction.class.getName());
+    private static Logger log = Logger.getLogger(CommandAction.class.getName());
 
     public CommandAction(JButton button, Screen screen, Tree tree) {
         this.button = button;
@@ -55,11 +56,11 @@ public class CommandAction implements ActionListener {
                     screen.getScreen().setText(String.valueOf(reversePolishNotation.parsing(screen.getScreen().getText())));
                     tree.update();
                 } catch (NumberFormatException e) {
-                    log.log(Level.INFO,"При попытке парсинга строки в case = произошла ошибка",e);
+                    log.log(Level.INFO, "При попытке парсинга строки в case = произошла ошибка", e);
                 } catch (IndexOutOfBoundsException e) {
-                    log.log(Level.INFO,"Выход за пределы строки в case =",e);
+                    log.log(Level.INFO, "Выход за пределы строки в case =", e);
                 } catch (NoSuchElementException e) {
-                    log.log(Level.INFO,"Элементов больше нет",e);
+                    log.log(Level.INFO, "Элементов больше нет", e);
                 }
                 break;
             case "C":
@@ -67,7 +68,7 @@ public class CommandAction implements ActionListener {
                 tree.getRoot().removeAllChildren();
                 tree.getRoot().setUserObject("=");
                 tree.update();
-                reversePolishNotation.resetNotation();
+                reversePolishNotation=new ReversePolishNotation(tree);
                 break;
             case "DEL":
                 try {
@@ -76,7 +77,7 @@ public class CommandAction implements ActionListener {
                     tree.getRoot().setUserObject(value);
                     tree.update();
                 } catch (StringIndexOutOfBoundsException e) {
-                    log.log(Level.INFO,"Выход за пределы строки в case DEL",e);
+                    log.log(Level.INFO, "Выход за пределы строки в case DEL", e);
                 }
                 break;
             case "sqrt":
@@ -105,14 +106,15 @@ public class CommandAction implements ActionListener {
                         child = new DefaultMutableTreeNode(prevText);
                     else {
                         child = tree.getRoot().getNextNode();
-                    }                    parent = new DefaultMutableTreeNode("1/x");
+                    }
+                    parent = new DefaultMutableTreeNode("1/x");
                     parent.add(child);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
                     tree.update();
 
                 } catch (NumberFormatException e) {
-                    log.log(Level.INFO,"При попытке парсинга строки в case 1/x произошла ошибка",e);
+                    log.log(Level.INFO, "При попытке парсинга строки в case 1/x произошла ошибка", e);
                 }
                 break;
         }
