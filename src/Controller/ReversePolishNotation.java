@@ -263,6 +263,7 @@ public class ReversePolishNotation {
             runCommand(operands, operators.removeLast());
         }
         tree.getRoot().setUserObject(operands.get(0));
+        //tree.setRoot(tree.getRoot().getNextNode());
 
         return operands.get(0);
 

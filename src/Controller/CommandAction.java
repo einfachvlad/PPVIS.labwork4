@@ -69,14 +69,13 @@ public class CommandAction implements ActionListener {
                 tree.getRoot().removeAllChildren();
                 tree.getRoot().setUserObject("=");
                 tree.update();
-                reversePolishNotation=new ReversePolishNotation(tree);
+                reversePolishNotation = new ReversePolishNotation(tree);
                 break;
             case "DEL":
                 try {
                     value = String.valueOf(screen.getScreen().getText().substring(0, screen.getScreen().getText().length() - 1));
                     screen.getScreen().setText(value);
                     tree.getRoot().setUserObject(value);
-                    tree.update();
                 } catch (StringIndexOutOfBoundsException e) {
                     log.log(Level.INFO, "Выход за пределы строки в case DEL", e);
                 }

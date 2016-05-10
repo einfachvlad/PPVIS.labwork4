@@ -24,6 +24,10 @@ public class Tree {
         tree.getTree().addTreeExpansionListener(new TreeListener(tree.getTree()));
     }
 
+    public void setRoot(TreeNode node){
+        tree=new TreeModel(node);
+    }
+
     public TreeNode getRoot(){
 
         return root;

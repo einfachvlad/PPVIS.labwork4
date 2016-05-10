@@ -53,6 +53,10 @@ public class TreeNode {
     public void setUserObject(Object object){
         node.setUserObject(object);
     }
+    public Object getUserObject(){
+        return node.getUserObject();
+    }
+
     public TreeNode getNextNode()
     {
         node=node.getNextNode();
