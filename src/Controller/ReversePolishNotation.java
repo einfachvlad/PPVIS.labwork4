@@ -1,24 +1,23 @@
 package Controller;
 
+import Model.TreeNode;
 import View.Tree;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
 import java.util.LinkedList;
 
 public class ReversePolishNotation {
 
-    DefaultMutableTreeNode child1;
-    DefaultMutableTreeNode child2;
-    DefaultMutableTreeNode parent;
+    TreeNode child1;
+    TreeNode child2;
+    TreeNode parent;
     Tree tree;
 
     public ReversePolishNotation(Tree tree) {
         this.tree = tree;
-        child1 = new DefaultMutableTreeNode();
-        child2 = new DefaultMutableTreeNode();
-        parent = new DefaultMutableTreeNode("");
+        child1 = new TreeNode();
+        child2 = new TreeNode();
+        parent = new TreeNode("");
     }
 
     boolean isOperator(String operator) {
@@ -44,7 +43,7 @@ public class ReversePolishNotation {
                 operator.equals("sinh") || operator.equals("cosh") || operator.equals("tanh")) {
 
             if (parent.getChildCount() == 0)
-                child1 = new DefaultMutableTreeNode(firstOperand);
+                child1 = new TreeNode(firstOperand);
             else
                 child1 = parent;
 
@@ -52,42 +51,42 @@ public class ReversePolishNotation {
             switch (operator) {
                 case "sin":
                     operands.add(Math.sin(firstOperand));
-                    parent = new DefaultMutableTreeNode(Math.sin(firstOperand));
+                    parent = new TreeNode(Math.sin(firstOperand));
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
                     break;
                 case "cos":
                     operands.add(Math.cos(firstOperand));
-                    parent = new DefaultMutableTreeNode(Math.cos(firstOperand));
+                    parent = new TreeNode(Math.cos(firstOperand));
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
                     break;
                 case "tan":
                     operands.add(Math.tan(firstOperand));
-                    parent = new DefaultMutableTreeNode(Math.tan(firstOperand));
+                    parent = new TreeNode(Math.tan(firstOperand));
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
                     break;
                 case "sinh":
                     operands.add(Math.sinh(firstOperand));
-                    parent = new DefaultMutableTreeNode(Math.sinh(firstOperand));
+                    parent = new TreeNode(Math.sinh(firstOperand));
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
                     break;
                 case "cosh":
                     operands.add(Math.cosh(firstOperand));
-                    parent = new DefaultMutableTreeNode(Math.cosh(firstOperand));
+                    parent = new TreeNode(Math.cosh(firstOperand));
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
                     break;
                 case "tanh":
                     operands.add(Math.tanh(firstOperand));
-                    parent = new DefaultMutableTreeNode(Math.tanh(firstOperand));
+                    parent = new TreeNode(Math.tanh(firstOperand));
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
@@ -97,16 +96,16 @@ public class ReversePolishNotation {
             double secondOperand = operands.removeLast();
 
             if (parent.getChildCount() == 0) {
-                child1 = new DefaultMutableTreeNode(firstOperand);
-                child2 = new DefaultMutableTreeNode(secondOperand);
+                child1 = new TreeNode(firstOperand);
+                child2 = new TreeNode(secondOperand);
             } else {
 
-                if (firstOperand == Double.valueOf(parent.toString())) {
+                if (firstOperand == Double.valueOf(parent.getNode().toString())) {
                     child1 = parent;
-                    child2 = new DefaultMutableTreeNode(secondOperand);
+                    child2 = new TreeNode(secondOperand);
                 } else {
                     child2 = parent;
-                    child1 = new DefaultMutableTreeNode(firstOperand);
+                    child1 = new TreeNode(firstOperand);
                 }
 
             }
@@ -115,7 +114,7 @@ public class ReversePolishNotation {
                 case "+":
                     operands.add(firstOperand + secondOperand);
 
-                    parent = new DefaultMutableTreeNode(firstOperand + secondOperand);
+                    parent = new TreeNode(firstOperand + secondOperand);
 
                     parent.add(child1);
                     parent.add(child2);
@@ -126,7 +125,7 @@ public class ReversePolishNotation {
                 case "-":
                     operands.add(secondOperand - firstOperand);
 
-                    parent = new DefaultMutableTreeNode(secondOperand - firstOperand);
+                    parent = new TreeNode(firstOperand - secondOperand  );
 
                     parent.add(child1);
                     parent.add(child2);
@@ -137,7 +136,7 @@ public class ReversePolishNotation {
                 case "*":
                     operands.add(secondOperand * firstOperand);
 
-                    parent = new DefaultMutableTreeNode(firstOperand * secondOperand);
+                    parent = new TreeNode(firstOperand * secondOperand);
 
                     parent.add(child1);
                     parent.add(child2);
@@ -149,7 +148,7 @@ public class ReversePolishNotation {
                 case "/":
                     operands.add(secondOperand / firstOperand);
 
-                    parent = new DefaultMutableTreeNode(firstOperand / secondOperand);
+                    parent = new TreeNode(firstOperand / secondOperand);
 
                     parent.add(child1);
                     parent.add(child2);
@@ -160,7 +159,7 @@ public class ReversePolishNotation {
                 case "%":
                     operands.add(secondOperand % firstOperand);
 
-                    parent = new DefaultMutableTreeNode(firstOperand % secondOperand);
+                    parent = new TreeNode(firstOperand % secondOperand);
 
                     parent.add(child1);
                     parent.add(child2);

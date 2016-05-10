@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.TreeNode;
 import View.CalculatorParts.*;
 import View.Tree;
 
@@ -19,8 +20,8 @@ public class CommandAction implements ActionListener {
     Tree tree;
     String value;
     String prevText;
-    DefaultMutableTreeNode child;
-    DefaultMutableTreeNode parent;
+    TreeNode child;
+    TreeNode parent;
 
     private static Logger log = Logger.getLogger(CommandAction.class.getName());
 
@@ -86,11 +87,11 @@ public class CommandAction implements ActionListener {
                 screen.getScreen().setText(value);
                 tree.getRoot().setUserObject(value);
                 if (tree.getRoot().getChildCount() == 0)
-                    child = new DefaultMutableTreeNode(prevText);
+                    child = new TreeNode(prevText);
                 else {
                     child = tree.getRoot().getNextNode();
                 }
-                parent = new DefaultMutableTreeNode("sqrt");
+                parent = new TreeNode("sqrt");
                 parent.add(child);
                 tree.getRoot().removeAllChildren();
                 tree.getRoot().add(parent);
@@ -103,11 +104,11 @@ public class CommandAction implements ActionListener {
                     screen.getScreen().setText(value);
                     tree.getRoot().setUserObject(value);
                     if (tree.getRoot().getChildCount() == 0)
-                        child = new DefaultMutableTreeNode(prevText);
+                        child = new TreeNode(prevText);
                     else {
                         child = tree.getRoot().getNextNode();
                     }
-                    parent = new DefaultMutableTreeNode("1/x");
+                    parent = new TreeNode("1/x");
                     parent.add(child);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);

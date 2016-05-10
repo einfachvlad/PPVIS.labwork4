@@ -3,6 +3,8 @@ package Controller;
 import javax.swing.*;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 
 /**
@@ -21,15 +23,16 @@ public class TreeListener implements TreeExpansionListener {
 
         System.out.println(tree.getWidth());
         System.out.println(tree.getHeight());
-        //tree.setPreferredSize(new Dimension(tree.getWidth(),tree.getHeight()));
 
     }
 
     @Override
     public void treeExpanded(TreeExpansionEvent treeExpansionEvent) {
-        //tree.setPreferredSize(new Dimension(tree.getWidth(),tree.getHeight()));
         System.out.println(tree.getWidth());
         System.out.println(tree.getHeight());
+        TreePath path=treeExpansionEvent.getPath();
+        DefaultMutableTreeNode node=(DefaultMutableTreeNode)path.getLastPathComponent();
+        //  node.setUserObject("!!!");
 
     }
 }

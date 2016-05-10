@@ -41,7 +41,7 @@ public class RadioAction implements ActionListener {
             panel.getPanel().setMinimumSize(panelDimension);
             panel.getPanel().setSize(panelDimension);
 
-            Dimension frameDimension=new Dimension(tree.getTree().getWidth() + panel.getPanel().getWidth()+14, window.getFrame().getHeight());
+            Dimension frameDimension=new Dimension(tree.getTree().getTree().getWidth() + panel.getPanel().getWidth()+14, window.getFrame().getHeight());
             window.getFrame().setMinimumSize(frameDimension);
             window.getFrame().setSize(frameDimension);
 
@@ -56,7 +56,7 @@ public class RadioAction implements ActionListener {
             panel.getPanel().setMinimumSize(panelDimension);
             panel.getPanel().setSize(panelDimension);
 
-            Dimension frameDimension=new Dimension(tree.getTree().getWidth() + panel.getPanel().getWidth()+14, window.getFrame().getHeight());
+            Dimension frameDimension=new Dimension(tree.getTree().getTree().getWidth() + panel.getPanel().getWidth()+14, window.getFrame().getHeight());
             window.getFrame().setMinimumSize(frameDimension);
             window.getFrame().setSize(frameDimension);
 
