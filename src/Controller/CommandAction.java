@@ -1,12 +1,13 @@
 package Controller;
 
-import Model.TreeNode;
 import View.CalculatorParts.*;
 import View.Tree;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +20,8 @@ public class CommandAction implements ActionListener {
     Tree tree;
     String value;
     String prevText;
-    TreeNode child;
-    TreeNode parent;
+    DefaultMutableTreeNode child;
+    DefaultMutableTreeNode parent;
 
     private static Logger log = Logger.getLogger(CommandAction.class.getName());
 
@@ -85,13 +86,11 @@ public class CommandAction implements ActionListener {
                 screen.getScreen().setText(value);
                 tree.getRoot().setUserObject(value);
                 if (tree.getRoot().getChildCount() == 0)
-                    child = new TreeNode(prevText);
+                    child = new DefaultMutableTreeNode(prevText);
                 else {
-                    child = new TreeNode(tree.getRoot().getNode().getNextNode());
+                   child=tree.getRoot().getNextNode();
                 }
-                parent = new TreeNode(value);
-                parent.setOperator("sqrt");
-                parent.setValue(Double.valueOf(value));
+                parent = new DefaultMutableTreeNode(value);
                 parent.add(child);
                 tree.getRoot().removeAllChildren();
                 tree.getRoot().add(parent);
@@ -104,13 +103,11 @@ public class CommandAction implements ActionListener {
                     screen.getScreen().setText(value);
                     tree.getRoot().setUserObject(value);
                     if (tree.getRoot().getChildCount() == 0)
-                        child = new TreeNode(prevText);
+                        child = new DefaultMutableTreeNode(prevText);
                     else {
-                        child = new TreeNode(tree.getRoot().getNode().getNextNode());
+                        child=tree.getRoot().getNextNode();
                     }
-                    parent = new TreeNode(value);
-                    parent.setOperator("1/x");
-                    parent.setValue(Double.valueOf(value));
+                    parent = new DefaultMutableTreeNode(value);
                     parent.add(child);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
