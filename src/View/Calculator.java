@@ -28,4 +28,8 @@ public class Calculator {
     public Box getPanel() {
         return calculatorPanel;
     }
+
+    public  Screen getScreen(){
+        return calculatorScreen;
+    }
 }

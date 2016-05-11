@@ -1,5 +1,7 @@
 package View;
 
+import Controller.TreeListener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -23,6 +25,8 @@ public class Window {
         boxPanel.add(treeScrollPane);
         boxPanel.add(Box.createHorizontalStrut(12));
         boxPanel.add(calculator.getPanel());
+
+        treePanel.getTree().addTreeExpansionListener(new TreeListener(treePanel,calculator.getScreen()));
 
         mainwidnow.setContentPane(boxPanel);
         mainwidnow.pack();

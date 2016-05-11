@@ -41,6 +41,7 @@ public class ReversePolishNotation {
     void runCommand(LinkedList<Double> operands, String operator) {
 
         double firstOperand = operands.removeLast();
+        String expression;
         if (operator.equals("sin") || operator.equals("cos") || operator.equals("tan") ||
                 operator.equals("sinh") || operator.equals("cosh") || operator.equals("tanh")) {
 
@@ -57,6 +58,10 @@ public class ReversePolishNotation {
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace("sin(" + firstOperand + ")", parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
                 case "cos":
                     operands.add(Math.cos(firstOperand));
@@ -64,6 +69,10 @@ public class ReversePolishNotation {
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace("cos(" + firstOperand + ")", parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
                 case "tan":
                     operands.add(Math.tan(firstOperand));
@@ -71,6 +80,10 @@ public class ReversePolishNotation {
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace("tan(" + firstOperand + ")", parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
                 case "sinh":
                     operands.add(Math.sinh(firstOperand));
@@ -78,6 +91,10 @@ public class ReversePolishNotation {
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace("sinh(" + firstOperand + ")", parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
                 case "cosh":
                     operands.add(Math.cosh(firstOperand));
@@ -85,6 +102,10 @@ public class ReversePolishNotation {
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace("cosh(" + firstOperand + ")", parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
                 case "tanh":
                     operands.add(Math.tanh(firstOperand));
@@ -92,6 +113,10 @@ public class ReversePolishNotation {
                     parent.add(child1);
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace("tanh(" + firstOperand + ")", parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
             }
         } else {
@@ -139,6 +164,21 @@ public class ReversePolishNotation {
 
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    String exp = firstOperand + "+" + secondOperand;
+                    expression = tree.getExpressions().getLast().replace(secondOperand + "+" + firstOperand, parent.toString());
+                    if (expression.equals(tree.getExpressions().getLast())) {
+                        expression = tree.getExpressions().getLast().replace("(" + secondOperand + ")" + "+" + firstOperand, parent.toString());
+                        if (expression.equals(tree.getExpressions().getLast()))
+                            tree.getExpressions().add(expression);
+                        else {
+                            expression = tree.getExpressions().getLast().replace(+secondOperand + "+" + "(" + firstOperand + ")", parent.toString());
+                            tree.getExpressions().add(expression);
+
+                        }
+                    } else
+                        tree.getExpressions().add(expression);
+
                     break;
                 case "-":
                     operands.add(secondOperand - firstOperand);
@@ -151,6 +191,19 @@ public class ReversePolishNotation {
 
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace(secondOperand + "-" + firstOperand, parent.toString());
+                    if (expression.equals(tree.getExpressions().getLast())) {
+                        expression = tree.getExpressions().getLast().replace("(" + secondOperand + ")" + "-" + firstOperand, parent.toString());
+                        if (expression.equals(tree.getExpressions().getLast()))
+                            tree.getExpressions().add(expression);
+                        else {
+                            expression = tree.getExpressions().getLast().replace(+secondOperand + "-" + "(" + firstOperand + ")", parent.toString());
+                            tree.getExpressions().add(expression);
+                        }
+                    } else
+                        tree.getExpressions().add(expression);
+
                     break;
                 case "*":
                     operands.add(secondOperand * firstOperand);
@@ -163,28 +216,39 @@ public class ReversePolishNotation {
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
 
+                    expression = tree.getExpressions().getLast().replace(secondOperand + "*" + firstOperand, parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
                 case "/":
                     operands.add(secondOperand / firstOperand);
 
-                    parent = new DefaultMutableTreeNode(firstOperand / secondOperand);
+                    parent = new DefaultMutableTreeNode(secondOperand / firstOperand);
 
                     parent.add(child1);
                     parent.add(child2);
 
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace(secondOperand + "/" + firstOperand, parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
                 case "%":
                     operands.add(secondOperand % firstOperand);
 
-                    parent = new DefaultMutableTreeNode(firstOperand % secondOperand);
+                    parent = new DefaultMutableTreeNode(secondOperand % firstOperand);
 
                     parent.add(child1);
                     parent.add(child2);
 
                     tree.getRoot().removeAllChildren();
                     tree.getRoot().add(parent);
+
+                    expression = tree.getExpressions().getLast().replace(secondOperand + "%" + firstOperand, parent.toString());
+                    tree.getExpressions().add(expression);
+
                     break;
             }
 

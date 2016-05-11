@@ -54,6 +54,13 @@ public class CommandAction implements ActionListener {
                 break;
             case "=":
                 try {
+                    if (tree.getExpressions().size() != 0) {
+                        tree.getExpressions().removeLast();
+                        if (tree.getExpressions().getLast() != screen.getScreen().getText())
+                            tree.getExpressions().add(screen.getScreen().getText());
+                    } else
+                        tree.getExpressions().add(screen.getScreen().getText());
+
                     screen.getScreen().setText(String.valueOf(reversePolishNotation.parsing(screen.getScreen().getText())));
                     tree.update();
                 } catch (NumberFormatException e) {
@@ -70,12 +77,16 @@ public class CommandAction implements ActionListener {
                 tree.getRoot().setUserObject("=");
                 tree.update();
                 reversePolishNotation = new ReversePolishNotation(tree);
+                while (tree.getExpressions().size() != 0)
+                    tree.getExpressions().removeLast();
                 break;
             case "DEL":
                 try {
-                    value = String.valueOf(screen.getScreen().getText().substring(0, screen.getScreen().getText().length() - 1));
-                    screen.getScreen().setText(value);
-                    tree.getRoot().setUserObject(value);
+                    if (!screen.getScreen().getText().equals("")) {
+                        value = String.valueOf(screen.getScreen().getText().substring(0, screen.getScreen().getText().length() - 1));
+                        screen.getScreen().setText(value);
+                        tree.getRoot().setUserObject(value);
+                    }
                 } catch (StringIndexOutOfBoundsException e) {
                     log.log(Level.INFO, "Выход за пределы строки в case DEL", e);
                 }
@@ -88,7 +99,7 @@ public class CommandAction implements ActionListener {
                 if (tree.getRoot().getChildCount() == 0)
                     child = new DefaultMutableTreeNode(prevText);
                 else {
-                   child=tree.getRoot().getNextNode();
+                    child = tree.getRoot().getNextNode();
                 }
                 parent = new DefaultMutableTreeNode(value);
                 parent.add(child);
@@ -105,7 +116,7 @@ public class CommandAction implements ActionListener {
                     if (tree.getRoot().getChildCount() == 0)
                         child = new DefaultMutableTreeNode(prevText);
                     else {
-                        child=tree.getRoot().getNextNode();
+                        child = tree.getRoot().getNextNode();
                     }
                     parent = new DefaultMutableTreeNode(value);
                     parent.add(child);
